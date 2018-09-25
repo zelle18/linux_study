@@ -25,6 +25,18 @@ Vagrant.configure("2") do |config|
   # argument is a set of non-required options.
   config.vm.synced_folder ".", "/linux_journeyman_exam"
 
+  # grep NAME= /etc/os-release == NAME="Ubuntu"
+  # grep VERSION= /etc/os-release == VERSION="16.04.4 LTS (Xenial Xerus)"
+  # uname -r == "4.4.0-130-generic"
+  # ERROR: Warning: Authentication failure. Retrying...
+  # The ssh keys were not allowing "vagrant reload" to connect after
+  # reboot (see: "vagrant reload").  I suspect this is related specifically
+  # to my OS.  Googling for fixes led me here...
+  # https://github.com/hashicorp/vagrant/issues/5186
+  # I chose the "config.ssh.insert_key = false" solution.
+  # This fixed my issue.  
+  config.ssh.insert_key = false
+  
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
